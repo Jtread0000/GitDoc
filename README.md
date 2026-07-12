@@ -1,4 +1,4 @@
-# GitDoc
+# GitDoc | Word Tracked Change Manager
 
 **A boilerplate for writing long-form documents — papers, dissertations, articles —
 with an AI collaborator whose every edit is a reviewable Word tracked change,
