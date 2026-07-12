@@ -31,6 +31,12 @@ short-lived token that expires in hours.
 4. In the JSON response, copy `refresh_token`.
 
 ## 3. Add repo secrets and variables
+
+> **Who sets what.** The three **secrets** and the `DROPBOX_DEST_DIR` **variable** are
+> yours to add — an agent can't set GitHub secrets, and often can't set repo variables
+> either, so it will hand you the exact value. [`.env.example`](../.env.example) is the
+> one-glance checklist of every key and where it goes.
+
 In the GitHub repo → **Settings → Secrets and variables → Actions**:
 
 **Repository secrets** (not Environment secrets):

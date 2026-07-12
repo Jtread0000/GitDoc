@@ -52,6 +52,24 @@ generator. **Blockers** (`WRITE/CITE/VERIFY/Q/REF`) must be zero before a share;
 with the lint: `python3 scripts/check_tags.py` (nonzero if a blocker survives
 Accept-All).
 
+## Author-writes mode (venues with AI-authorship rules)
+
+Some venues restrict AI-**written** prose (ISACA and many journals). Ask during
+onboarding whether the writer's target has such a rule. If it does, run in
+**author-writes mode**:
+
+- The `0.1.0` baseline is a **skeleton + markers, not AI-written prose** — section
+  headings with a `[[WRITE: …]]` under each for the writer to draft themselves.
+- Carry the settled arguments, evidence, and structure you'd otherwise draft as
+  `[[NOTE: …]]` **author-only guidance** (stripped before sharing) and
+  `[[CITE: …]]` / `[[VERIFY: …]]` on claims — so the writer has the material at their
+  fingertips but the words are theirs.
+- You scaffold, organize, source, and fact-check; **you do not write the prose**. The
+  document stays the author's own creation, which keeps it clean under the rule.
+
+Without such a rule, draft prose normally (as tracked `[[WRITE:]]` fills the writer
+reviews). Either way, every change you make is still a tracked change.
+
 ## Editing: every change is a tracked change
 
 Never rewrite the document opaquely. Use `scripts/docx_tracked_changes.py`:

@@ -22,6 +22,11 @@ your hand:
 - A researcher writing a paper with many cross-references and a moving argument.
 - Anyone maintaining a manuscript they want to review, version, and keep durable.
 
+Writing for a venue that **restricts AI-written text** (ISACA, many journals)? GitDoc
+has an **author-writes mode**: the AI scaffolds structure, sources, and fact-checks
+and leaves `[[WRITE: …]]` markers, but *you* write the prose — so the words stay
+yours. See [`AGENTS.md`](AGENTS.md).
+
 ## Why it works
 
 - **Reviewable, not opaque.** Changes are real `<w:ins>`/`<w:del>` Word revisions
@@ -81,7 +86,8 @@ from `0.1.0` to `0.2.0` as **one** decision instead of a dozen scattered edits.
    Commit as you go.
 6. **(Optional) Turn on storage sync.** Follow
    [`docs/setup-dropbox.md`](docs/setup-dropbox.md) to mirror the file to a folder
-   you open in Word. Skip this and everything still works in git.
+   you open in Word — [`.env.example`](.env.example) is the one-glance checklist of
+   which keys go where. Skip this and everything still works in git.
 7. **Cut versions.** When a draft is a share-point, tag a release (`0.2.0`) and note
    it in [`CHANGELOG.md`](CHANGELOG.md).
 

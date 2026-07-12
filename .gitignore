@@ -1,3 +1,6 @@
+# Secrets — never commit a real .env (see .env.example for the reference)
+.env
+
 # Python
 __pycache__/
 *.pyc

@@ -28,7 +28,11 @@ for the full conventions; this skill is the setup procedure.
      type and let them adjust.
    - The author label to attach to tracked changes.
    - Storage: git only for now, or sync to a folder they open in Word? (Secrets are
-     theirs to add per `docs/setup-dropbox.md`; you only set the folder.)
+     theirs to add per `docs/setup-dropbox.md` / `.env.example`; you only set the
+     folder.)
+   - **AI-authorship rule?** Does their venue restrict AI-*written* prose (ISACA,
+     many journals)? If yes, use **author-writes mode** (see `AGENTS.md`): the
+     baseline is a skeleton + markers you scaffold, but the prose stays theirs.
 
 2. **Confirm the plan** back in a few lines before creating anything.
 
