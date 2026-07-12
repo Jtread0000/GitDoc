@@ -36,8 +36,11 @@ Open the folder with a coding agent (Claude Code, or any agent that reads
 - seed `CHANGELOG.md` at `0.1.0` and start `LOG.md`;
 - commit it.
 
-Prefer to hand it a ready-made brief? Copy [`kickoff-template.md`](kickoff-template.md),
-fill in the blanks, and paste it as your first message.
+Two ready-made first prompts if you'd rather not wing it:
+- [`setup-prompt.md`](setup-prompt.md) — let the AI lead: it reads the repo,
+  interviews you, and sets things up. Best when the repo is attached to a fresh chat.
+- [`kickoff-template.md`](kickoff-template.md) — you fill in the blanks and hand over
+  a complete brief.
 
 ## 4. Write by asking for tracked changes
 
