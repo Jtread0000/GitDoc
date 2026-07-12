@@ -61,4 +61,7 @@ A green run that says `Dropbox sync skipped` means the secrets aren't set.
 - The sync writes tiny marker files under `<DROPBOX_DEST_DIR>/.sync/` to remember
   each file's last-synced version. Leave them alone.
 - Nothing is ever hard-deleted. A Dropbox-side edit is captured into git, never
-  overwritten (see `docs/editing-protocol.md`).
+  overwritten (see `docs/editing-protocol.md`). The full loop is diagrammed in the
+  README's **Storage sync** section.
+- **Dropbox is the first backend, not the only planned one** — more storage targets
+  (Google Drive, OneDrive) are on the roadmap. Track it in the repo issues.

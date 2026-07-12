@@ -137,14 +137,63 @@ either template alone, or drop LitParser's `Lit/` tree into a GitDoc project to 
 reference injection. (LitParser is a separate "Use this template" repo; the link goes
 live once it's published.)
 
-## A note on storage
+## Storage sync (Dropbox)
 
-Your document is version-controlled in **git** no matter what — storage sync is an
-optional convenience so you can open the live `.docx` in Word. The included
-implementation targets **Dropbox** (a self-contained script that speaks the Dropbox
-HTTP API directly, so it handles binary `.docx` files). Prefer another provider? The
-sync is one small script (`scripts/dropbox_sync.py`); adapt its upload/download calls
-to your provider's API and keep the rest.
+Your document is version-controlled in **git** no matter what. Storage sync is an
+optional layer on top so the live `.docx` lands in a folder you open in **Word** on
+desktop or mobile. The included implementation targets **Dropbox** and runs in
+**GitHub Actions** — it speaks the Dropbox HTTP API directly, so it handles binary
+`.docx` files that most connectors refuse.
+
+### Giving GitHub Actions permission to write to Dropbox
+
+The Action needs to write to your Dropbox on its own, without a human re-authorizing
+each run. You grant that **once**:
+
+1. Create a **Dropbox app** (scoped access) with `files.content.read/write` +
+   `files.metadata.read`.
+2. Do the one-time OAuth exchange to get an **offline refresh token** (it lets the
+   Action mint short-lived access tokens forever).
+3. Add three **repository secrets** — `DROPBOX_APP_KEY`, `DROPBOX_APP_SECRET`,
+   `DROPBOX_REFRESH_TOKEN` — and one **variable**, `DROPBOX_DEST_DIR` (your target
+   folder). The workflow stays completely inert until those exist, so nothing breaks
+   before setup.
+
+Full step-by-step (with the exact URLs and the token exchange) is in
+**[`docs/setup-dropbox.md`](docs/setup-dropbox.md)**; the key-by-key checklist is
+[`.env.example`](.env.example). Secrets are yours to add — an agent can't set them.
+
+### The full loop (and how it prevents data loss)
+
+A `.docx` is **binary** — it can't be merged like text. So the sync never blindly
+overwrites: on each run it compares Dropbox's version fingerprint to the last one it
+wrote. If you edited the file in Word, it **captures** that copy into git instead of
+clobbering it.
+
+```mermaid
+flowchart TD
+    A["You and the AI edit the .docx<br/>every AI edit is a tracked change"] --> B["git commit and push"]
+    B --> C{"sync-to-dropbox Action:<br/>did Dropbox change since last sync?"}
+    C -->|No, untouched| D["Upload: mirror the .docx into your Dropbox folder"]
+    D --> E["You open it in Word<br/>on desktop or mobile"]
+    C -->|Yes, you edited it in Word| F["CAPTURE: commit the Dropbox copy into git,<br/>never overwrite"]
+    F --> G["Your edit is safe in git;<br/>the AI re-applies its changes on top"]
+    E -->|you edit, next push re-syncs| C
+```
+
+**One writer at a time.** Because two people (you in Word, the Action on push) can't
+safely write the same binary at once, the rule is one writer at a time: say
+"hands off" and the agent captures your Dropbox edits into git before it touches the
+file again. Details: [`docs/editing-protocol.md`](docs/editing-protocol.md). The
+upshot — **no edit is ever silently lost**; a conflict becomes a git commit, not a
+`(conflicted copy)` file you have to reconcile by hand.
+
+### More backends coming
+
+Dropbox is the first sync target, not the only planned one — additional storage
+backends (e.g. Google Drive, OneDrive) are on the roadmap. The sync is one small
+script (`scripts/dropbox_sync.py`); until then, you can adapt its upload/download
+calls to another provider's API and keep the rest. Tracked in the issues.
 
 ## License
 
