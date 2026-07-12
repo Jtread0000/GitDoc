@@ -85,11 +85,13 @@ from `0.1.0` to `0.2.0` as **one** decision instead of a dozen scattered edits.
 7. **Cut versions.** When a draft is a share-point, tag a release (`0.2.0`) and note
    it in [`CHANGELOG.md`](CHANGELOG.md).
 
-Two ready-made first prompts, depending on how you like to work:
+Ready-made first prompts, depending on how you like to work:
 - [`docs/setup-prompt.md`](docs/setup-prompt.md) — paste into a fresh chat with the
   repo attached and let the AI **lead**: read the repo, interview you, set it up.
 - [`docs/kickoff-template.md`](docs/kickoff-template.md) — you **fill in the blanks**
   up front and hand the agent a complete brief.
+- [`docs/migrate-prompt.md`](docs/migrate-prompt.md) — already been **working the
+  paper out in a chat**? Formalize that discussion into a GitDoc document, in place.
 
 ## What's inside
 
@@ -105,6 +107,7 @@ Two ready-made first prompts, depending on how you like to work:
 | `docs/workflow.md` | The authoring model: chat-vs-doc, decisions, versioning, the suggestion engine. |
 | `docs/setup-prompt.md` | Copy-paste prompt: let the AI lead setup in a fresh chat with the repo attached. |
 | `docs/kickoff-template.md` | Copy-paste first prompt where you fill in the details up front. |
+| `docs/migrate-prompt.md` | Copy-paste prompt: formalize an existing chat discussion into a GitDoc document. |
 | `docs/tracked-changes.md` | The tracked-changes API and rules. |
 | `docs/editing-protocol.md` | One-writer-at-a-time rule that prevents "conflicted copy" files. |
 | `docs/setup-dropbox.md` | One-time storage app + offline token + secrets setup. |
