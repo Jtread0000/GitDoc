@@ -57,7 +57,8 @@ from `0.1.0` to `0.2.0` as **one** decision instead of a dozen scattered edits.
    pip install -r requirements.txt
    ```
 3. **Open your AI in the repo** (Claude Code, or any coding agent). It reads
-   [`AGENTS.md`](AGENTS.md) and offers to onboard you.
+   [`AGENTS.md`](AGENTS.md) and offers to onboard you. In Claude Code, just run
+   **`/gitdoc-setup`** — the setup skill drives the whole thing.
 4. **Tell it what you're writing** — the doc type, the topic, a rough structure — or
    just talk through your goals. It bootstraps your `.docx` (with `[[WRITE: …]]`
    markers for anything to fill later) at version `0.1.0`.
@@ -89,7 +90,8 @@ Two ready-made first prompts, depending on how you like to work:
 | `docs/tracked-changes.md` | The tracked-changes API and rules. |
 | `docs/editing-protocol.md` | One-writer-at-a-time rule that prevents "conflicted copy" files. |
 | `docs/setup-dropbox.md` | One-time storage app + offline token + secrets setup. |
-| `SKILL.md` | Claude Code skill definition (optional; other agents use `AGENTS.md`). |
+| `.claude/skills/gitdoc-setup/` | Claude Code skill: onboard a new writer and bootstrap their doc (run `/gitdoc-setup`). |
+| `.claude/skills/tracked-doc-sync/` | Claude Code skill: the tracked-changes editing API. |
 | `examples/quickstart.py` | Runnable end-to-end demo of the tracked-changes loop. |
 
 ## A note on storage

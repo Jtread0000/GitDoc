@@ -6,6 +6,10 @@ the repo, ask you a few things, then stand up your document. It's the hands-off
 sibling of [`kickoff-template.md`](kickoff-template.md): there you fill in the
 blanks; here you let the AI draw the details out and drive.
 
+> **Using Claude Code?** You don't need this prompt — just run **`/gitdoc-setup`**
+> in the cloned repo and the setup skill drives the same flow. The prompt below is
+> for any other chat/AI where the repo is attached.
+
 Copy the block below and paste it as your first message.
 
 ---

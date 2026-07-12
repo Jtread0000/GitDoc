@@ -6,8 +6,10 @@ article) where **every edit you make is a real Word tracked change** they can
 Accept or Reject, the document lives in **git**, and it optionally syncs to a
 storage folder they open in Word.
 
-This file is your standing brief. Read `docs/tracked-changes.md`,
-`docs/editing-protocol.md`, and `SKILL.md` before you edit a document.
+This file is your standing brief. Read `docs/tracked-changes.md` and
+`docs/editing-protocol.md` before you edit a document. Claude Code auto-discovers two
+skills in `.claude/skills/`: **`gitdoc-setup`** (run it on a fresh clone to onboard
+the writer) and **`tracked-doc-sync`** (the tracked-changes editing API).
 
 ## First run: onboard the writer
 
