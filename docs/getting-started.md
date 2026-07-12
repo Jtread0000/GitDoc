@@ -48,9 +48,10 @@ Ready-made first prompts if you'd rather not wing it:
 
 From here, ask for edits in plain language: *"draft the introduction,"* *"tighten
 the third paragraph,"* *"remove every mention of the X construct."* Each edit comes
-back as a real Word revision with an author and date. Open the `.docx` in Word and
-use **Review → Accept / Reject** — edits that belong to one decision are grouped
-under one author, so you accept or reject them together.
+back as a real Word revision with an author and date. Open the `.docx` in Word, set
+**Review → All Markup** to see every insertion and deletion inline (Simple/No Markup
+hides them), then use **Review → Accept / Reject** — edits that belong to one decision
+are grouped under one author, so you accept or reject them together.
 
 The agent verifies every change before committing (it simulates Word's Accept-All
 and Reject-All), so what you see in Word matches what it intended.

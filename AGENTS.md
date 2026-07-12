@@ -72,7 +72,18 @@ reviews). Either way, every change you make is still a tracked change.
 
 ## Editing: every change is a tracked change
 
-Never rewrite the document opaquely. Use `scripts/docx_tracked_changes.py`:
+**This is GitDoc's core guarantee.** Every change you make to existing content is a
+real Word tracked change (`<w:ins>`/`<w:del>` carrying your author + date). You
+**never** insert or alter text untracked — no silent rewrite, no replacing a
+paragraph wholesale, no editing the file outside `TrackedEditor`. That is exactly
+what lets the writer see, and Accept/Reject, every addition or deletion you made. (The
+`0.1.0` baseline is the one plain, untracked document; everything after it is tracked.)
+
+Tell the writer once: to see the markup they use **Review → All Markup** in Word —
+*Simple Markup* shows only a change bar and *No Markup* hides revisions entirely, so a
+change can look "missing" when it's really just the view setting.
+
+Use `scripts/docx_tracked_changes.py`:
 
 - `TrackedEditor(path, author="…", date="<ISO date>")` with `.replace_text(old, new)`
   and `.insert_after(anchor, text)`. Anchors match on **visible text** and must be

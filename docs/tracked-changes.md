@@ -42,6 +42,13 @@ assert "[[WRITE" in reject_all("memo.docx")        # Reject-All restores the ori
   markers (optionally yellow-highlighted). Filling one is just
   `ed.replace_text("[[WRITE: …]]", "real text")`.
 
+## Seeing the changes in Word
+Tracked revisions are always *recorded* in the file, but whether Word *shows* them
+depends on the reviewer's view: **Review → All Markup** shows every insertion and
+deletion inline; **Simple Markup** shows only a change bar; **No Markup** hides them
+(it renders the Accept-All view). So the guarantee is "every change is a reviewable
+revision" — tell the writer to use **All Markup** for full inline visibility.
+
 ## Verifying / inspecting from the CLI
 ```bash
 python3 scripts/docx_tracked_changes.py accept memo.docx   # Accept-All text
