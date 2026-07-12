@@ -22,7 +22,7 @@ your hand:
 - A researcher writing a paper with many cross-references and a moving argument.
 - Anyone maintaining a manuscript they want to review, version, and keep durable.
 
-Writing for a venue that **restricts AI-written text** (ISACA, many journals)? GitDoc
+Writing for a venue that **restricts AI-written text** ? GitDoc
 has an **author-writes mode**: the AI scaffolds structure, sources, and fact-checks
 and leaves `[[WRITE: …]]` markers, but *you* write the prose — so the words stay
 yours. See [`AGENTS.md`](AGENTS.md).
