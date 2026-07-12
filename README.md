@@ -112,6 +112,22 @@ Two ready-made first prompts, depending on how you like to work:
 | `.claude/skills/tracked-doc-sync/` | Claude Code skill: the tracked-changes editing API. |
 | `examples/quickstart.py` | Runnable end-to-end demo of the tracked-changes loop. |
 
+## Pairing with LitParser (optional)
+
+GitDoc has a companion — **[LitParser](https://github.com/Jtread0000/LitParser)** —
+a literature engine that turns a pile of PDFs into a structured, cited knowledge base
+(a `lit.yaml` source of truth, open-access PDF fetching, PDF→Markdown conversion, and
+generated reading-list / APA-reference views). The two connect through **one seam**:
+the `[[REF: id]]` marker. A `REF` id points at a LitParser record, so your AI can
+surface a source from your knowledge base and drop the verified citation into the
+manuscript on request.
+
+The coupling is deliberately thin — GitDoc needs nothing from LitParser to work, and
+`[[REF: id]]` behaves as an ordinary blocker marker when no `lit.yaml` is present. Use
+either template alone, or drop LitParser's `Lit/` tree into a GitDoc project to get
+reference injection. (LitParser is a separate "Use this template" repo; the link goes
+live once it's published.)
+
 ## A note on storage
 
 Your document is version-controlled in **git** no matter what — storage sync is an

@@ -28,6 +28,13 @@ Every marker is:
 — a shareable draft should have **none open**. `NOTE` and `CUT?` are **author-only**
 — strip them before sharing. The lint below enforces exactly this line.
 
+**`REF` and LitParser.** A `[[REF: id]]` id points at a record in a literature
+database — the seam to GitDoc's companion engine,
+**[LitParser](https://github.com/Jtread0000/LitParser)**. If a `lit.yaml` is present
+(e.g. LitParser's `Lit/` tree dropped into this project), the AI resolves the id to
+the verified citation; if not, `REF` is just an ordinary open blocker. No `lit.yaml`
+is required for anything else here.
+
 ## Current placeholders
 
 _Your AI updates the table below as it fills markers. Status: **OPEN** = still to
