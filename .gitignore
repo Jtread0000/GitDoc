@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+*.pyc
+
+# Example / test output docs
+quickstart.docx
+t.docx

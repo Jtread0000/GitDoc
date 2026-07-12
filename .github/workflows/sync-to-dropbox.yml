@@ -1,0 +1,54 @@
+name: Sync docs to Dropbox
+
+# Mirrors your tracked-changes .docx files to Dropbox on push, using the Dropbox
+# HTTP API directly (binary-safe, connector-independent). Two-way safe: if a file
+# was edited in Dropbox since the last sync, it is CAPTURED into git instead of
+# being overwritten (see scripts/dropbox_sync.py).
+#
+# SETUP (see docs/setup-dropbox.md):
+#   Repository secrets: DROPBOX_APP_KEY, DROPBOX_APP_SECRET, DROPBOX_REFRESH_TOKEN
+#   Repository variables: DROPBOX_DEST_DIR (target folder), SYNC_FILES (optional;
+#     defaults to every *.docx in the repo root)
+#
+# The workflow stays inert until the three secrets exist, so nothing breaks before
+# setup. During rapid human+agent co-editing, comment out the `push:` block to
+# avoid the two-writer race (see docs/editing-protocol.md); dispatch manually then.
+
+on:
+  push:
+    branches: [main, "claude/**"]
+    paths:
+      - "**/*.docx"
+      - ".github/workflows/sync-to-dropbox.yml"
+      - "scripts/dropbox_sync.py"
+  workflow_dispatch: {}
+
+concurrency:
+  group: sync-to-dropbox
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync to Dropbox (capture-safe)
+        env:
+          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+          DROPBOX_DEST_DIR: ${{ vars.DROPBOX_DEST_DIR }}
+          SYNC_FILES: ${{ vars.SYNC_FILES }}
+        run: |
+          set -euo pipefail
+          if [ -z "${DROPBOX_REFRESH_TOKEN:-}" ] || [ -z "${DROPBOX_APP_KEY:-}" ] || [ -z "${DROPBOX_APP_SECRET:-}" ]; then
+            echo "::warning title=Dropbox sync skipped::Secrets are not set; nothing synced."
+            exit 0
+          fi
+          python3 scripts/dropbox_sync.py
