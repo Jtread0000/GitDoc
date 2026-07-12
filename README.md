@@ -18,7 +18,7 @@ Anyone doing long-form writing who wants an **external, permanent AI thought-org
 that helps with structure, formatting, and references without taking the pen out of
 your hand:
 
-- A PhD student drafting a dissertation chapter.
+- A PhD student drafting a dissertation.
 - A researcher writing a paper with many cross-references and a moving argument.
 - Anyone maintaining a manuscript they want to review, version, and keep durable.
 
