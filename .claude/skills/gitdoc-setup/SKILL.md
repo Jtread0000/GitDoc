@@ -44,11 +44,16 @@ for the full conventions; this skill is the setup procedure.
        # …one string per paragraph/heading from their structure
    ], "<title>.docx")
    ```
-   This first skeleton is the `0.1.0` baseline (a plain doc). **Everything after it
-   is a tracked change** — see the `tracked-doc-sync` skill / `docs/tracked-changes.md`.
+   Use the placeholder vocabulary for markers — `[[WRITE: …]]` for content to draft,
+   and `[[CITE: …]]` / `[[VERIFY: …]]` / `[[Q: …]]` where relevant (full set:
+   `PLACEHOLDERS.md`). This first skeleton is the `0.1.0` baseline (a plain doc).
+   **Everything after it is a tracked change** — see the `tracked-doc-sync` skill.
 
 4. **Wire the basics.**
    - Seed `CHANGELOG.md` at `0.1.0` and add the first `LOG.md` entry (reverse-dated).
+   - Fill in the `## Current placeholders` table in `PLACEHOLDERS.md` for the new
+     doc (list each marker, its location, and OPEN status); keep it current as you
+     fill markers. It's agent-curated — don't rely on a generator.
    - If syncing, tell them the `DROPBOX_DEST_DIR` repo-variable value to set (a **new
      subfolder per project**) and point to `docs/setup-dropbox.md`. Never hard-code a
      personal storage path into committed files.

@@ -36,10 +36,21 @@ them set it up:
    - If they chose storage sync, set `DROPBOX_DEST_DIR` to *their* folder and point
      them to `docs/setup-dropbox.md` for the three secrets. Never hard-code a
      personal path into committed files — it goes in the repo variable.
-   - Seed `CHANGELOG.md` with their `0.1.0` and add the first `LOG.md` entry.
+   - Seed `CHANGELOG.md` with their `0.1.0`, add the first `LOG.md` entry, and fill
+     the `## Current placeholders` table in `PLACEHOLDERS.md`.
 4. **Commit** the bootstrapped doc and settings with a clear message.
 
 If a manuscript `.docx` already exists, skip onboarding and just help them write.
+
+## Placeholder markers
+
+The document carries its own to-do list as bracket tags (full spec:
+`PLACEHOLDERS.md`). Author them as you draft and keep the `## Current placeholders`
+table current — it's **agent-curated**; you have the doc in git, so don't lean on a
+generator. **Blockers** (`WRITE/CITE/VERIFY/Q/REF`) must be zero before a share;
+**author-only** (`NOTE/CUT?`) are private, stripped before sharing. Gate every share
+with the lint: `python3 scripts/check_tags.py` (nonzero if a blocker survives
+Accept-All).
 
 ## Editing: every change is a tracked change
 
@@ -55,12 +66,20 @@ Never rewrite the document opaquely. Use `scripts/docx_tracked_changes.py`:
   `reject_all(path)` restores the original. Do not skip this.
 - Commit to git with a clear message; if sync is on, the workflow mirrors it.
 
-## Versioning: a version is a share-point
+## Decisions, versioning, and the suggestion engine
 
-A version bump is a **milestone the writer declares**, not a per-edit counter. When
-they say a draft is ready to send/share, tag a release (e.g. `0.2.0`), add a
-`CHANGELOG.md` entry describing what changed at that share-point, and note it in
-`LOG.md`. Between share-points, keep committing freely without bumping the version.
+- A **decision** is one coherent, doc-wide edit (add/remove one thing). Carry all its
+  tracked changes under a single **named** `author` label (e.g. `Claude —
+  trim-to-pitch`) and list it under `CHANGELOG.md` **[Unreleased]**.
+- A **version** is a share-point the **writer declares**, not a per-edit counter
+  (`MAJOR.MINOR.PATCH`; `0.1.0` baseline, `1.0.0` first final draft).
+- **Suggestion engine:** watch the [Unreleased] decisions and *proactively suggest
+  cutting a version* when they form a coherent, right-sized unit (~2–4 related
+  decisions, or one complete decision worth sharing) so versions stay small. On a
+  bump: run `check_tags.py`, roll [Unreleased] into a dated `CHANGELOG.md` entry with
+  a **commit link per bullet** (the recovery index for removed text), tag the
+  release, and note it in `LOG.md`. You *suggest*; the writer *declares*. Full model:
+  `docs/workflow.md`.
 
 ## One writer at a time
 
@@ -74,6 +93,8 @@ storage.
 
 - `LOG.md` — reverse-dated worklog: one short entry per working session or notable
   touch.
-- `CHANGELOG.md` — one entry per declared version/share-point.
+- `CHANGELOG.md` — one entry per declared version/share-point; decisions accumulate
+  under [Unreleased] between them.
+- `PLACEHOLDERS.md` — the live marker tracker; update it as you fill markers.
 - Keep the manuscript lean and the tone modest; be confident about the substance,
   not showy about it.

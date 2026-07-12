@@ -45,6 +45,21 @@ paragraphs on three pages. One instruction to your AI, and every mention is remo
 as tracked changes you can review. Accept them together, and the manuscript moves
 from `0.1.0` to `0.2.0` as **one** decision instead of a dozen scattered edits.
 
+## How it fits together
+
+- **Placeholder markers** let the document carry its own to-do list — `[[WRITE: …]]`
+  for content to draft, plus `CITE / VERIFY / REF / NOTE / Q / CUT?` for sources,
+  facts, references, private notes, questions, and deletion candidates. The
+  *blockers* (`WRITE/CITE/VERIFY/Q/REF`) must be cleared before you share; a one-line
+  lint (`scripts/check_tags.py`) enforces it. Full spec + live tracker:
+  [`PLACEHOLDERS.md`](PLACEHOLDERS.md).
+- **Decisions** are the unit of work: one coherent, document-wide edit, grouped under
+  a single author label so it accepts/rejects as a group in Word.
+- **Versions** are share-points *you* declare (`0.1.0 → 0.2.0`); the AI suggests when
+  to cut one so they stay small, and rolls the decisions into a `CHANGELOG.md` entry
+  whose commit links double as your recovery index. See
+  [`docs/workflow.md`](docs/workflow.md).
+
 ## Quick Start
 
 > Full walkthrough: [`docs/getting-started.md`](docs/getting-started.md).
@@ -81,10 +96,13 @@ Two ready-made first prompts, depending on how you like to work:
 | Path | Role |
 | --- | --- |
 | [`AGENTS.md`](AGENTS.md) | Standing instructions any AI reads on clone: onboarding + editing + versioning rules. |
+| [`PLACEHOLDERS.md`](PLACEHOLDERS.md) | The marker vocabulary (`WRITE/CITE/VERIFY/REF/NOTE/Q/CUT?`) + the live placeholder tracker. |
 | `scripts/docx_tracked_changes.py` | Create a `.docx`; apply tracked changes matched on visible text; simulate Accept-All / Reject-All to verify. |
+| `scripts/check_tags.py` | Pre-share lint: fails if any blocker marker still survives Accept-All. |
 | `scripts/dropbox_sync.py` | git↔storage sync with conflict **capture** (never clobbers a storage-side edit). |
 | `.github/workflows/sync-to-dropbox.yml` | Runs the sync on push (binary-safe, via the storage HTTP API). |
 | `docs/getting-started.md` | The human quick-start walkthrough. |
+| `docs/workflow.md` | The authoring model: chat-vs-doc, decisions, versioning, the suggestion engine. |
 | `docs/setup-prompt.md` | Copy-paste prompt: let the AI lead setup in a fresh chat with the repo attached. |
 | `docs/kickoff-template.md` | Copy-paste first prompt where you fill in the details up front. |
 | `docs/tracked-changes.md` | The tracked-changes API and rules. |

@@ -53,6 +53,11 @@ under one author, so you accept or reject them together.
 The agent verifies every change before committing (it simulates Word's Accept-All
 and Reject-All), so what you see in Word matches what it intended.
 
+As you draft, unfinished spots are held by **placeholder markers** — `[[WRITE: …]]`
+for content to fill, plus `CITE / VERIFY / REF / NOTE / Q / CUT?`. The agent keeps a
+live [`PLACEHOLDERS.md`](../PLACEHOLDERS.md) tracker so you always know what's still
+open. The *blockers* among them must be cleared before you share (below).
+
 ## 5. (Optional) Sync to storage you open in Word
 
 If you want the live `.docx` on your desktop or phone, turn on storage sync:
@@ -67,10 +72,21 @@ controlled in git. The workflow stays inert until the secrets exist.
 
 ## 6. Cut versions when a draft is ready to share
 
-A version is a **share-point you declare**, not a bump per edit. When a draft is
-ready to send to an advisor or co-author, tag a release (`0.2.0`), add a line to
-`CHANGELOG.md` describing what changed, and note it in `LOG.md`. Between share-
-points, keep committing freely.
+A version is a **share-point you declare**, not a bump per edit. Between shares, work
+accumulates as named **decisions** under `CHANGELOG.md` [Unreleased]; the agent
+*suggests* cutting a version when they add up to a coherent, right-sized unit, so
+versions stay small. When you agree, it rolls the decisions into a dated
+`CHANGELOG.md` entry (each bullet linking to its commit — your recovery index), tags
+the release, and notes it in `LOG.md`.
+
+Before you share, clear the blocker markers:
+
+```bash
+python3 scripts/check_tags.py    # nonzero exit if any WRITE/CITE/VERIFY/Q/REF is still open
+```
+
+The full authoring model — chat-vs-doc, decisions, the suggestion engine — is in
+[`workflow.md`](workflow.md).
 
 ## Editing etiquette (one writer at a time)
 
@@ -81,6 +97,9 @@ in [`editing-protocol.md`](editing-protocol.md).
 
 ## Where to look next
 
+- [`workflow.md`](workflow.md) — the authoring model: decisions, versioning, the
+  suggestion engine.
+- [`../PLACEHOLDERS.md`](../PLACEHOLDERS.md) — the marker vocabulary and live tracker.
 - [`tracked-changes.md`](tracked-changes.md) — how the tracked-changes machinery
   works and its rules.
 - [`editing-protocol.md`](editing-protocol.md) — avoiding "conflicted copy" files.
