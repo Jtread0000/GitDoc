@@ -67,8 +67,13 @@ If you want the live `.docx` on your desktop or phone, turn on storage sync:
 
 - Follow [`setup-dropbox.md`](setup-dropbox.md) once to create a storage app, get an
   offline refresh token, and add the three secrets.
-- Set the `DROPBOX_DEST_DIR` repo variable to your own folder (use a **new subfolder
-  per project**).
+- Set the `DROPBOX_DEST_DIR` repo variable to your own folder. The path is
+  **Dropbox-root-relative, not your local disk path** — strip the
+  `…/CloudStorage/Dropbox/` (macOS) or `…\Dropbox\` (Windows) prefix. See
+  [`setup-dropbox.md`](setup-dropbox.md#choosing-dropbox_dest_dir).
+- **Running several GitDocs?** Pick one parent research folder, then **one subfolder
+  per paper** — point each repo's `DROPBOX_DEST_DIR` at its own subfolder (never share
+  one; each writes its own `.sync/` markers).
 
 Skip this entirely and nothing breaks — your document is still fully version-
 controlled in git. The workflow stays inert until the secrets exist.

@@ -49,8 +49,26 @@ In the GitHub repo → **Settings → Secrets and variables → Actions**:
 **Repository variables**:
 | Variable | Value |
 | --- | --- |
-| `DROPBOX_DEST_DIR` | Dropbox folder to sync into, e.g. `/Research/MyProject` |
+| `DROPBOX_DEST_DIR` | Dropbox-root-relative folder for this project, e.g. `/Research/MyProject`. Give every GitDoc its own subfolder — the sync creates it; don't share a folder between projects. |
 | `SYNC_FILES` | *(optional)* comma-separated files; default = every `*.docx` in the repo root |
+
+### Choosing `DROPBOX_DEST_DIR`
+The path is relative to your **Dropbox root, not your local disk.** The #1 mistake is
+pasting the local folder path from Finder/Explorer — that includes your Dropbox mount
+prefix, which must be stripped:
+
+- **macOS:** `/Users/<you>/Library/CloudStorage/Dropbox/…` → `/…`
+- **Windows:** `C:\Users\<you>\Dropbox\…` → `/…`
+
+Example — the local path
+`/Users/jtreadwell/Library/CloudStorage/Dropbox/_Jeremy/_PhD/_Research/CyberForesight-Paper`
+becomes `DROPBOX_DEST_DIR = /_Jeremy/_PhD/_Research/CyberForesight-Paper`.
+
+**One subfolder per project.** Each GitDoc writes `.sync/` version markers into its
+dest folder, so give every project its own — e.g. `/Research/PaperA`,
+`/Research/PaperB`. **Never point two GitDocs at the same folder** (they'd share one
+`.sync/` area — cluttered, and collision-prone if two docs ever share a filename). The
+sync auto-creates the subfolder; you don't pre-make it.
 
 ## 4. Verify
 Push a change to a `.docx` (or run the workflow manually via **Actions → Sync docs
@@ -59,7 +77,9 @@ A green run that says `Dropbox sync skipped` means the secrets aren't set.
 
 ## Notes
 - The sync writes tiny marker files under `<DROPBOX_DEST_DIR>/.sync/` to remember
-  each file's last-synced version. Leave them alone.
+  each file's last-synced version. Leave them alone. Because these markers are
+  per-folder, two GitDocs must **not** share a `DROPBOX_DEST_DIR` — give each its own
+  subfolder.
 - Nothing is ever hard-deleted. A Dropbox-side edit is captured into git, never
   overwritten (see `docs/editing-protocol.md`). The full loop is diagrammed in the
   README's **Storage sync** section.
